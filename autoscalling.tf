@@ -1,10 +1,12 @@
 data "aws_subnet_ids" "subnets" {
   vpc_id = aws_vpc.main.id
+  depends_on = [aws_subnet.public_a]
 }
 
 data "aws_subnet" "subnet_values" {
-  for_each = data.aws_subnet_ids.subnets.ids
-  id       = each.value
+  
+  id       = aws_subnet.public_a.id
+  depends_on = [aws_subnet.public_a]
 }
 
 resource "aws_launch_configuration" "launch-configuration" {
@@ -22,7 +24,7 @@ resource "aws_autoscaling_group" "autoscalling_group_config" {
   health_check_type         = "ELB"
   desired_capacity          = 3
   force_delete              = true
-  vpc_zone_identifier       = [for s in data.aws_subnet.subnet_values : s.id]
+  vpc_zone_identifier       = [aws_subnet.public_a.id]
   launch_configuration      = aws_launch_configuration.launch-configuration.name
   lifecycle {
     create_before_destroy = true
