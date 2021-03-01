@@ -8,11 +8,3 @@ resource "aws_instance" "linux" {
   subnet_id = aws_subnet.public_a.id
 }
 
-#data "aws_ami" "amazonlinux" {
-# most_recent = true
-
-# filter {
-#  name   = "name"
-# values = ["ubuntu/images/hvm-ssd/ubuntu-bionic-18.04-amd64-server-*"]
-# }
-#}

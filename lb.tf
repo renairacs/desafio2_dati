@@ -1,13 +1,13 @@
 data "aws_availability_zones" "available" {
   state = "available"
-  }
+}
 
 
 resource "aws_elb" "autoscalling_group_elb" {
-  name               = var.autoscalling_group_elb_name
-  security_groups    = ["${aws_security_group.allow_tls.id}"]
+  name            = var.autoscalling_group_elb_name
+  security_groups = ["${aws_security_group.allow_tls.id}"]
   #availability_zones = data.aws_availability_zones.available.names
-  subnets = [ aws_subnet.public_a.id ]
+  subnets = [aws_subnet.public_a.id]
   health_check {
     healthy_threshold   = 2
     unhealthy_threshold = 2

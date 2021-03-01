@@ -1,11 +1,11 @@
 data "aws_subnet_ids" "subnets" {
-  vpc_id = aws_vpc.main.id
+  vpc_id     = aws_vpc.main.id
   depends_on = [aws_subnet.public_a]
 }
 
 data "aws_subnet" "subnet_values" {
-  
-  id       = aws_subnet.public_a.id
+
+  id         = aws_subnet.public_a.id
   depends_on = [aws_subnet.public_a]
 }
 
